@@ -1,0 +1,14 @@
+#This script models the vanilla two cities model.
+
+function YDiff = TwoCities(S_1, I_1, R_1, D_1, S_2, I_2, R_2, D_2, alpha_1, beta_1, gamma_1, omega_1, lambda_1, pi_1, alpha_2, beta_2, gamma_2, omega_2, lambda_2, pi_2 )
+    alpha_2 = exp(-I_2) * alpha_2;
+    DS_1 = gamma_1 * R_1 - alpha_1*S_1*I_1 - lambda_1 * S_1 + lambda_2 * S_2 + pi_1 * S_1;
+    DI_1 = alpha_1*S_1*I_1 - lambda_1 * I_1 + lambda_2 * I_2 - I_1*(omega_1 + beta_1);
+    DR_1 = beta_1*I_1 - gamma_1*R_1 + lambda_2 * R_1 - lambda_1 * R_1;
+    DD_1 = omega_1*I_1;
+    DS_2 = gamma_2 * R_2 - alpha_2*S_2*I_2 - lambda_2 * S_2 + lambda_1 * S_1 + pi_2 * S_2;
+    DI_2 = alpha_2*S_2*I_2 + lambda_1 * I_1 - lambda_2 * I_2 - I_2*(omega_2 + beta_2);
+    DR_2 = beta_2*I_2 - gamma_2*R_2 - lambda_2 * R_2 + lambda_1 * R_2;
+    DD_2 = omega_2*I_2;
+    YDiff = [DS_1, DI_1, DR_1, DD_1, DS_2, DI_2, DR_2, DD_2 ];
+end
